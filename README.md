@@ -13,7 +13,7 @@ java -jar binscure.jar config.yml
 
 ## Building
 
-Install the JDK and setup `JAVA_HOME` by following the instructions [here](https://docs.oracle.com/cd/E19182-01/821-0917/inst_jdk_javahome_t/index.html).
+Install the JDK 15 and setup `JAVA_HOME` by following the instructions [here](https://docs.oracle.com/cd/E19182-01/821-0917/inst_jdk_javahome_t/index.html).
 
 Install [maven](https://maven.apache.org/install.html).
 
