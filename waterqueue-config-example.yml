@@ -1,0 +1,110 @@
+# Example config used by https://github.com/blazenarchy/waterqueue.
+
+# Relative path to the input jar
+input: waterqueue-v0.0.1.jar
+
+# Optional output jar, default is to append `-obf` to the filename (before the `.jar` extension).
+# output: waterqueue.jar
+
+# List of jar files to be used for inheritance information
+# Directories can be specified, in which case they will be recursively searched for jar or zip files to include
+libraries:
+    - waterfall-api.jar
+    - waterfall-chat.jar
+    - waterfall-event.jar
+    - waterfall-config.jar
+    - waterfall-protocol.jar
+
+# List of class names to be completely ignored by the obfuscator
+# This will help peformance but may prevent remapping from properly taking place
+# Because of this I suggest you only do this for classes that are called but never inherited
+hardExclusions:
+  - com/example/library/
+
+# Rename identifiers
+remap:
+  enabled: true
+  dictionary: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  classes: true # obfuscate class names
+  methods: true # obfuscate method names
+  fields: true # obfuscate field names
+  localVariables: true # obfuscate local variable names
+  obfuscateEnums: true # obfuscate enum names 
+  classPrefix: "FIELD"
+  methodPrefix: "CLASS"
+  fieldPrefix: "METHOD"
+  localVariableName: "" # can be emptyto delete local variable names
+  aggressiveOverloading: false # aggresively overload names (may break)  
+  
+  # per transformer exclusions inherit the root exclusions and can add to them
+  exclusions:
+    - com/example/application/reflection
+
+# Remove source debug information (used in stacktraces)
+sourceStrip:
+  enabled: true
+  lineNumbers: REMOVE # or KEEP. Specifies whether to remove line numbers. Keeping them can help stack traces.
+
+# Remove extra information stored by the kotlin compiler
+kotlinMetadata:
+  enabled: true
+  type: REMOVE # or CENSOR. Either remove 
+
+# Crash reverse engineering tools like decompilers and dissasemblers
+crasher:
+  enabled: true
+  checksums: true # crash some zip archiving tools
+  decompilers: true # crash some decompilers
+  antiAsm: true # crash the ow2 ASM library. May not work in conjunction with tools like Spigot and Forge
+  recaf: true # hinder the functionality of the Recaf tool
+
+# Ture static method calls into dynamic ones. Makes static reverse engineering of execution flow significantly harder.
+indirection:
+  enabled: true
+
+# Encrypt strings and dynamically decrypt them at runtime (with anti tampering checks)
+stringObfuscation:
+  enabled: true
+
+# Substitute arithmetic operations with mixed boolean substitutes
+arithmetic:
+  enabled: true
+  repeat: 3 # number of times to apply the arithmetic obfuscation (exponential). Around 2-4 is good.
+
+# Obscure the control flow of the application
+flowObfuscation:
+  enabled: true
+  severity: 5 # lower = more severe, larger file size, slower peformance; higher = less severe...
+  mergeMethods: BLOAT_CLASSES # or EXISTING_CLASSES/NONE. Relocates methods into new classes, creating confusing methods that do not match the class they are situated in
+  arithmetic: false # old arithmetic obfuscation, now legacy
+  noverify: false # create unverifiable bytecode that is very hard to decompile or dissasemble. Requires output application to be run with -noverify argument.
+  java8: false # If the application only targets java 8 virtual machines by setting this to true the output application will NOT have to be run with -noverify
+
+# Add additional arguments to method parameters which will be used for flow obfuscation. 
+# This will make static analysis hard as the arguments will have to be retrieved from callsites
+methodParameter:
+  enabled: true
+
+# Some minor peformance optimisations
+optimisation:
+  enabled: true
+  mutableEnumValues: false # optimise enum values() method. May have unintended consequences if the returned array is modified
+
+# Obfuscate number constants
+numberObfuscation:
+  enabled: true
+
+# Ignore warning errors about classes not being present in classpath
+ignoreClassPathNotFound: false
+
+# Use the java class loader to load libraries (not recommended)
+useJavaClassloader: false
+
+# Shuffle output
+shuffleClasses: true
+shuffleMethods: true
+shuffleFields: true
+
+resetLineProgress: true
+printProgress: true
+watermark: true
