@@ -1,6 +1,6 @@
 # Binscure
 
-Java obfuscator created by [x4e](https://github.com/x4e).
+Java bytecode obfuscator created by [x4e](https://github.com/x4e).
 
 ## Usage
 
