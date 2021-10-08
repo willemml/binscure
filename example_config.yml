@@ -1,7 +1,13 @@
-# Example config used by https://github.com/blazenarchy/waterqueue.
+# Example config.
 
 # Relative path to the input jar
-input: waterqueue-v0.0.1.jar
+sources:
+  - example_jar_0:
+    input: obfuscate_me.jar
+    output: obfuscated.jar
+  - example_jar_1:
+    input: obfuscate_me_too.jar
+    output: also_obfuscated.jar
 
 # Optional output jar, default is to append `-obf` to the filename (before the `.jar` extension).
 # output: waterqueue.jar
@@ -9,11 +15,7 @@ input: waterqueue-v0.0.1.jar
 # List of jar files to be used for inheritance information
 # Directories can be specified, in which case they will be recursively searched for jar or zip files to include
 libraries:
-    - waterfall-api.jar
-    - waterfall-chat.jar
-    - waterfall-event.jar
-    - waterfall-config.jar
-    - waterfall-protocol.jar
+    - required_library.jar
 
 # List of class names to be completely ignored by the obfuscator
 # This will help peformance but may prevent remapping from properly taking place
