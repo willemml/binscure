@@ -17,4 +17,4 @@ Install JDK 15 and setup `JAVA_HOME` by following the instructions [here](https:
 
 Install [maven](https://maven.apache.org/install.html).
 
-Run `mvn package` in the binscure repository, when the command completes the binscure jar file will be located at `./target/binscure.jar`.
+Run `mvn clean package` in the binscure repository, when the command completes the binscure jar file will be located at `./target/binscure.jar`.

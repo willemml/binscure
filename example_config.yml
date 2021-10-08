@@ -1,6 +1,6 @@
 # Example config.
 
-# Relative path to the input jar
+# List of jar files that should be obfuscated, optionally with the output path for each one.
 sources:
   - example_jar_0:
     input: obfuscate_me.jar
