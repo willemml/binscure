@@ -48,24 +48,13 @@ object CObfuscator {
 	
 	val random = SecureRandom()
 	val mappings = mutableMapOf<String, String>()
-	lateinit var hashParts: IntArray
 	
 	fun obfuscate(config: RootConfiguration) {
 		rootConfig = config
 		
-		val license = Licenser.license
-		if (license == null) {
-			println("Invalid License File. Please email x4e_x4e@protonmail.com for assistance.")
-			return
-		} else {
-			println("Found valid username and password at ${Licenser.licenseFile}")
-		}
-		hashParts = license.hashParts
-		
 		val classPath = HashMap<String, ClassNode>()
-		for (i in 0..(hashParts[8] xor 596941)) { // for i in 0..0
-			ClassPathIO.loadClassPath(classPath, rootConfig.libraries)
-		}
+		ClassPathIO.loadClassPath(classPath, rootConfig.libraries)
+		
 		
 		rootConfig.sources.forEach { (input, output) ->
 			obfuscate(classPath, input, output)
@@ -162,9 +151,7 @@ object CObfuscator {
 							val percentStr = ((progress / processors.size) * 100).toInt().toString().padStart(3, ' ')
 							print("$percentStr% - ${processor.progressDescription}".padEnd(100, ' '))
 						}
-						for (i in 0 until (hashParts[0] - 0x9121)) { // for i in 0 until 1
-							processor.process(classSources, classes, classSources.passThrough)
-						}
+						processor.process(classSources, classes, classSources.passThrough)
 					} catch (t: Throwable) {
 						println("\rException while processing [${processor.progressDescription}]:")
 						t.printStackTrace()

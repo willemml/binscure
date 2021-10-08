@@ -32,8 +32,6 @@ class StringObfuscator(source: ClassSources): IClassProcessor(source) {
 		get() = "Obfuscating string constants"
 	override val config: StringObfuscationConfiguration = rootConfig.stringObfuscation
 	
-	val hashParts = CObfuscator.hashParts
-	
 	override fun process(
 		source: ClassSources,
 		classes: MutableCollection<ClassNode>,
@@ -58,7 +56,7 @@ class StringObfuscator(source: ClassSources): IClassProcessor(source) {
 					if (insn is LdcInsnNode && insn.cst is String) {
 						val cst = insn.cst as String
 						if (cst.length > config.maxLength) continue
-						if (cst.length > hashParts[3] + 1) { // > 1
+						if (cst.length > 1) {
 							val encryptedString =
 								encryptString(
 									cst,
@@ -73,7 +71,7 @@ class StringObfuscator(source: ClassSources): IClassProcessor(source) {
 				}
 			}
 		}
-		if (stringInsns.size > hashParts[3]) {
+		if (stringInsns.size > 0) {
 			val decryptNode = ClassNode()
 				.apply {
 					this.access = ACC_PUBLIC + ACC_FINAL
@@ -175,8 +173,7 @@ class StringObfuscator(source: ClassSources): IClassProcessor(source) {
 	}
 	
 	private fun generateInitFunc(classNode: ClassNode, storageField: FieldNode) {
-		val access = hashParts[2] xor 37401 // 0
-		classNode.methods.add(MethodNode(access, "<init>", "()V", null, null).apply {
+		classNode.methods.add(MethodNode(0, "<init>", "()V", null, null).apply {
 			instructions.apply {
 				add(VarInsnNode(ALOAD, 0))
 				add(MethodInsnNode(INVOKESPECIAL, classNode.superName, "<init>", "()V"))

@@ -4,11 +4,11 @@ Java obfuscator created by [x4e](https://github.com/x4e).
 
 ## Usage
 
-First, create a config file ([example config](./waterqueue-config-example.yml) used by [blazenarchy/waterqueue](https://github.com/blazenarchy/waterqueue)).
+First, create a config file, ([example config here](./example_config.yml).
 
 When you have a config file, run binscure with the config file as an argument (also make sure that the config file points to the correct relative paths of the input file and any needed libraries), e.g.:
 ```
-java -jar binscure.jar config.yml
+java -jar target/binscure.jar example_config.yml
 ```
 
 ## Building

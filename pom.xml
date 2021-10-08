@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.binclub</groupId>
   <artifactId>binscure</artifactId>
-  <version>1.8.3-SNAPSHOT</version>
+  <version>1.8.4-SNAPSHOT</version>
 
   <scm>
     <connection>scm:git:ssh://git@github.com/x4e/binscure.git</connection>
